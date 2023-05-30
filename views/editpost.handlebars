@@ -1,0 +1,16 @@
+<h2>Edit Post</h2>
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label">Title</label>
+  <input type="text" class="form-control" id="edittitle">
+</div>
+<div class="mb-3 ">
+  <label for="exampleFormControlTextarea1" class="form-label ">Content</label>
+  {{!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" id="contents"></textarea> --}}
+  <input type="text" class="form-control" id="editcontents">
+</div>
+<div>
+    <button type="button" class="btn btn-outline-secondary" id="create">Edit</button>
+    <button type="button" class="btn btn-outline-secondary" id="delete" onclick="destroyPost({{ postId }})">Delete Post</button>
+
+</div>
+<script src="/js/editpost.js"></script>

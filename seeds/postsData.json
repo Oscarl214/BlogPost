@@ -1,0 +1,14 @@
+[
+    {
+      "post_title": "Why MVC is important",
+      "contents": "MVC allows developers to maintain a separation of concerns,devising their code between the Modal layer for data, the View layer for design, and the Controller layer for application logic.",
+      "creator_name": "Oscar",
+      "date_created": "2023-07-12"
+    },
+    {
+      "post_title": "The Waterfall Concept",
+      "contents": "Its the execution flow of asynchronous operations in a sequential manner. It ensures that each operation is completed before moving on to the next one, creating a waterfall-like sequence.",
+      "creator_name": "Oscar",
+      "date_created": "1998-07-12"
+    }
+  ]
