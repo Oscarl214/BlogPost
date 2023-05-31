@@ -1,29 +1,28 @@
 const router = require("express").Router();
 const { User, Comment, Post } = require("../../models");
 
-
-
-
 router.get("/:id", (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated categorys
   Post.findOne({
     where: {
       id: req.params.id,
-    }
-  }).then((categoryId) => {
-    res.json(categoryId);
-  });
+    },
+  })
+    .then((post) => {
+      res.json(post);
+    })
+    .catch((error) => {
+      console.error("An error occurred while retrieving the post:", error);
+      res.status(500).json({ error: "Failed to retrieve post" });
+      console.log(error);
+    });
 });
-
-
 
 // Creating a route to create a Post
 router.post("/create", async (req, res) => {
   try {
     const userId = req.session.user_id; // Retriving the user ID from the session data
     const userData = await User.findByPk(userId);
-    
+
     const currentDate = new Date(); // Get the current date and time
     const postData = {
       post_title: req.body.post_title,
@@ -35,20 +34,18 @@ router.post("/create", async (req, res) => {
 
     const createdPost = await Post.create(postData);
     res.status(200).json(createdPost);
-  }catch (err) {
+  } catch (err) {
     console.log(err); // Log the error for debugging purposes
     res.status(400).json(err);
-    
   }
 });
 
-
-router.delete("/delete/:id", async (req,res)=>{
-  try{
-    const postData= await Post.destroy({
-      where:{
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const postData = await Post.destroy({
+      where: {
         id: req.params.id,
-      }
+      },
     });
     if (!postData) {
       res.status(400).json({ message: "No Post with this id!" });
@@ -61,5 +58,28 @@ router.delete("/delete/:id", async (req,res)=>{
   }
 });
 
+//Updating a Post
+
+router.put("/update/:id", (req, res) => {
+  const postId = req.params.id;
+
+  Post.update(req.body, {
+    where: {
+      id: postId,
+    },
+  })
+    .then((result) => {
+      console.log(result);
+      if (result[0] === 1) {
+        res.status(200).json({ message: "Post updated successfully" });
+      } else {
+        res.status(404).json({ error: "Post not found" });
+      }
+    })
+    .catch((error) => {
+      console.error("An error occurred while updating the post:", error);
+      res.status(500).json({ error: "Server error" });
+    });
+});
 
 module.exports = router;
