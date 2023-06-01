@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const { User, Comment, Post } = require("../../models");
 
-router.get("/:id/comments", (req, res) => {
-  const postId = req.params.postId;
-
+router.get("/:id", (req, res) => {
+  
+  const postId = req.params.id;
   Comment.findAll({
     where: {
       post_id: postId,
@@ -24,7 +24,9 @@ router.get("/:id/comments", (req, res) => {
     });
 });
 
-// Creating a route to create a Post
+
+
+// Creating a route to create a comment
 router.post("/create", async (req, res) => {
   try {
     const userId = req.session.user_id; // Retriving the user ID from the session data
@@ -32,13 +34,16 @@ router.post("/create", async (req, res) => {
 
     const currentDate = new Date(); // Get the current date and time
     const commentData = {
-      comment: req.body.post_title,
+      comment: req.body.comment,
       creator_name: userData.name, // Use the username (or any relevant property) of the logged-in user as the creator name
       date_created: currentDate, // Set the current date and time as the date_created property
       user_id: userId, // Corrected property name to match the column name in the model
+      post_id: req.body.postId,
     };
 
+
     const createdComment = await Comment.create(commentData);
+    console.log(createdComment.post_id);
     res.status(200).json(createdComment);
   } catch (err) {
     console.log(err); // Log the error for debugging purposes

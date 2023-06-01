@@ -14,13 +14,13 @@ router.get("/login", (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const postData = await Post.findAll({
-      attributes: {
-        exclude: ["id"], // Exclude the 'id' attribute if needed
-      },
+    /*  attributes: {
+        exclude: ["id"], 
+      },*/
       include: [
         {
           model: User,
-          attributes: ["id", "name"], // Include only the necessary attributes of the User model
+          attributes: ["id", "name"], 
         },
       ],
       raw: true,
@@ -97,19 +97,26 @@ router.get("/comment/:id", withAuth, async (req, res) => {
       include: [
         {
           model: Comment,
-          attributes: ["id", "comment", "creator_name", "date_created"],
+          attributes: ["id", "comment", "creator_name", "date_created", "user_id", "post_id"],
           include: {
             model: User,
-            attributes: ["name"],
+            attributes: ["id", "name"],
           },
         },
-      ],
-      raw: true,
+        {
+          model: User,
+          attributes: ["id", "name"],
+        },
+      ]
     });
+  
+
+    console.log("Current Post: ", postData);
 
     if (postData) {
       res.render("comment", {
         post: postData,
+        comments: postData.Comments,
         logged_in: req.session.logged_in,
       });
     } else {
@@ -130,7 +137,7 @@ router.get("/createpost", withAuth, async (req, res) => {
   res.render("createpost", { logged_in: req.session.logged_in });
 });
 
-router.get("/comment", withAuth, async (req, res) => {
-  res.render("comment", { logged_in: req.session.logged_in });
-});
+// router.get("/comment", withAuth, async (req, res) => {
+//   res.render("comment", { logged_in: req.session.logged_in });
+// });
 module.exports = router;

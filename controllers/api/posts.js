@@ -1,21 +1,43 @@
 const router = require("express").Router();
 const { User, Comment, Post } = require("../../models");
 
-router.get("/:id", (req, res) => {
-  Post.findOne({
-    where: {
-      id: req.params.id,
-    },
-  })
-    .then((post) => {
-      res.json(post);
-    })
-    .catch((error) => {
-      console.error("An error occurred while retrieving the post:", error);
-      res.status(500).json({ error: "Failed to retrieve post" });
-      console.log(error);
+router.get("/:id", async (req, res) => {
+  try {
+    const postId = req.params.id;
+
+    // Fetch the post details
+    const post = await Post.findByPk(postId);
+
+    if (!post) {
+      res.status(404).json({ error: "Post not found" });
+      return;
+    }
+
+    // Fetching associated comments for the post
+    const comments = await Comment.findAll({
+      where: {
+        post_id: postId,
+      },
+      include: [
+        {
+          model: User,
+          attributes: ["name"],
+        },
+      ],
     });
+
+    // Include the comments in the post object
+    post.comments = comments;
+
+    res.json(post);
+  } catch (error) {
+    console.error("An error occurred while retrieving the post and comments:", error);
+    res.status(500).json({ error: "Failed to retrieve post and comments" });
+  }
 });
+
+
+
 
 // Creating a route to create a Post
 router.post("/create", async (req, res) => {
