@@ -30,7 +30,7 @@ Posts.init(
     user_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "User", // Capitalize "User"
+        model: "user", // Capitalize "User"
         key: "id",
       }
     }
