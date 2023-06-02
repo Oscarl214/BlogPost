@@ -14,13 +14,13 @@ router.get("/login", (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const postData = await Post.findAll({
-    /*  attributes: {
+      /*  attributes: {
         exclude: ["id"], 
       },*/
       include: [
         {
           model: User,
-          attributes: ["id", "name"], 
+          attributes: ["id", "name"],
         },
       ],
       raw: true,
@@ -97,7 +97,14 @@ router.get("/comment/:id", withAuth, async (req, res) => {
       include: [
         {
           model: Comment,
-          attributes: ["id", "comment", "creator_name", "date_created", "user_id", "post_id"],
+          attributes: [
+            "id",
+            "comment",
+            "creator_name",
+            "date_created",
+            "user_id",
+            "post_id",
+          ],
           include: {
             model: User,
             attributes: ["id", "name"],
@@ -107,16 +114,16 @@ router.get("/comment/:id", withAuth, async (req, res) => {
           model: User,
           attributes: ["id", "name"],
         },
-      ]
+      ],
     });
-  
 
-    console.log("Current Post: ", postData);
+    // console.log("Current Post: ", postData);
 
+    const post = postData.get({ plain: true });
+    console.log(post);
     if (postData) {
       res.render("comment", {
-        post: postData,
-        comments: postData.Comments,
+        post,
         logged_in: req.session.logged_in,
       });
     } else {

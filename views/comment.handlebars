@@ -1,13 +1,13 @@
 <div class="card">
   <div class="card-header text-center">
-    <h1>{{post_title}}</h1>
+    <h1>{{post.post_title}}</h1>
   </div>
   <div class="card-body">
     <blockquote class="blockquote mb-0">
-      <p>{{contents}}.</p>
+      <p>{{post.contents}}.</p>
       <footer class="blockquote-footer">Posted by:
-        {{creator_name}},
-        {{date_created}}
+        {{post.creator_name}},
+        {{post.date_created}}
       </footer>
     </blockquote>
   </div>
@@ -33,28 +33,19 @@
     <div class="card-header text-center">
       <h1>Comment</h1>
     </div>
-      {{#each comments}}
-    <div class="card-body">
-      <blockquote class="blockquote mb-0">
-        <p>{{comment}}.</p>
-        <footer class="blockquote-footer">Posted by:
-          {{creator_name}},
-          {{date_created}}
-        </footer>
-      </blockquote>
-    </div>
-      {{/each}}
+    {{#each post.comments as |comment|}}
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <p>{{comment.comment}}.</p>
+          <footer class="blockquote-footer">Posted by:
+            {{creator_name}},
+            {{date_created}}
+          </footer>
+        </blockquote>
+      </div>
+    {{/each}}
   </div>
 
 </div>
 
 <script src="/js/createComments.js"></script>
-
-
-
-
-
-
-
-
-
