@@ -17,7 +17,7 @@ const createComment=()=>{
             if(response.ok){
                 console.log("Comment saved succesfully");
                 comment.value="";
-                // document.location.reload('/comment')
+                document.location.replace('/')
             }else{
                 console.log("Failed to save comment")
             }

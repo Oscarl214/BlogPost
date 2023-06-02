@@ -1,12 +1,13 @@
+<div><h2>Lets Talk Tech!</h2></div>
 {{#each posts as |post|}}
-  <a href="/comment/{{post.id}}">
-    <div class="card">
-      <div class="card-header text-center">
+  <a href="/comment/{{post.id}}" class="anchor">
+    <div class="card ">
+      <div class="card-header text-center text-dark">
         <h1>{{post.post_title}}</h1>
       </div>
       <div class="card-body">
         <blockquote class="blockquote mb-0">
-          <p>{{post.contents}}.</p>
+          <p class="contentssize">{{post.contents}}</p>
           <footer class="blockquote-footer">Posted by:
             {{post.creator_name}},
             {{post.date_created}}

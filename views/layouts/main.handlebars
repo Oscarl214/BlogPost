@@ -11,22 +11,41 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 </head>
 <body>
-  <header>
-     {{!-- {{#if logged_in}} --}}
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">TechBlog</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <header class="text-center">
+
+
+<div class="footer">
+
+<div>
+<svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+<defs>
+<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+</defs>
+<g class="parallax">
+<use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+<use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+<use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+<use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+</g>
+</svg>
+</div>
+<!--Waves end-->
+
+</div>
+<img class="img-fluid" src="/images/Blog.png" id="logo"/>
+
+     <br>
+<nav class="navbar navbar-expand-lg text-center">
+  <div class="container-fluid text-center">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="/">Home</a>
-        <a class="nav-link" href="/dashboard">DashBoard</a>
+      <div class="navbar-nav mx-auto">
+        <a class="nav-link active" aria-current="page" href="/" id="font">Home</a>
+        <a class="nav-link" href="/dashboard" id="font2">DashBoard</a>
             {{#if logged_in}}
-        <a class="nav-link btn" id="logout">Logout</button>
+        <a class="nav-link btn " id="logout"  >Logout</button>
            {{else}}
-        <a class="nav-link btn" id="login" href="/login">Login</a>
+        <a class="nav-link btn " id="login" href="/login" >Login</a>
            {{/if}}
       </div>
     </div>
@@ -36,7 +55,14 @@
   <main class="container container-fluid mt-5">
     {{{ body }}}
   </main>
+  <br>
+
   <footer>
+
+<div class="content flex">
+  <p>Created By | Oscar Leal</p>
+</div>
+
   </footer>
 
   {{#if logged_in}}
